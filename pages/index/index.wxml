@@ -10,4 +10,12 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
+  <!-- 小程序的数据绑定 -->
+  <view>{{name}}</view>
+  <!-- 小程序数据列表 -->
+  <view wx:for = '{{students}}'>name: {{item.name}}--age: {{item.age}}</view>
+  <!-- 小程序事件绑定 -->
+  <view>count: {{count}}</view>
+  <button size='mini' bindtap='addButtonTap'>+</button>
+  <button size='mini' bindtap='subtractButtonTap'>-</button>
 </view>

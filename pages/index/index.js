@@ -7,7 +7,14 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    name: 'DeveloperLY',
+    students: [
+      { id: 1, name: 'meimei', age: 15 },
+      { id: 2, name: 'tom', age: 18 },
+      { id: 3, name: 'lilei', age: 16 }
+    ],
+    count: 0
   },
   //事件处理函数
   bindViewTap: function() {
@@ -49,6 +56,18 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+
+  addButtonTap: function() {
+    this.setData({  
+      count: this.data.count + 1
+    })
+  },
+
+  subtractButtonTap: function() {
+    this.setData({
+      count: this.data.count - 1
     })
   }
 })

@@ -1,0 +1,25 @@
+<!--pages/scroll/scroll.wxml-->
+
+<!-- 水平滚动: scroll-x -->
+<!-- view是块级元素 -->
+<scroll-view class='container-x' scroll-x>
+  <block wx:for="{{10}}" wx:key='index'>
+    <view class='item1'>
+      {{item}}
+    </view>
+  </block>
+</scroll-view>
+
+<!-- 垂直滚动: scroll-y -->
+<scroll-view class='container-y' scroll-y>
+  <view wx:for="{{10}}" class='item2'>{{item}}</view>
+</scroll-view>
+
+<!-- 其他补充 -->
+<scroll-view class='container-y' 
+             scroll-y
+             bindscrolltoupper="handleUpper"
+             bindscrolltolower="handleLower"
+             bindscroll="handleScroll">
+  <view wx:for="{{10}}" class='item2'>{{item}}</view>
+</scroll-view>

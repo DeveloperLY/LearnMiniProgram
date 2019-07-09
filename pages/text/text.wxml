@@ -1,0 +1,25 @@
+<!--pages/text/text.wxml-->
+
+<!-- text 基本使用 -->
+<text>Hello World \n</text>
+<text>你好，小程序！\n</text>
+
+<!-- seletable: true -->
+<!-- 默认情况下，text 中的文本长按是不能选中 -->
+<text selectable='{{true}}'>Hello DeveloperLY \n</text>
+<text selectable>Hello DeveloperLY \n</text>
+
+<!-- space: 决定文本空格的大小 -->
+<text>Hello World\n</text>
+<!-- 默认：根据字体设置的空格大小 -->
+<text space='nbsp'>Hello World\n</text>
+<!-- 中文字符空格一半大小 -->
+<text space='ensp'>Hello World\n</text>
+<!-- 中文字符空格大小 -->
+<text space='emsp'>Hello World\n</text>
+
+<!-- decode 属性：是否解码文本 -->
+<!-- decode 可以解析的有 
+&nbsp; &lt; &gt; &amp; &apos; &ensp; &emsp; 
+-->
+<text decode>5 &gt; 3</text>

@@ -1,0 +1,42 @@
+<!--pages/button/button.wxml-->
+
+<!-- 默认 Button -->
+<button>按钮</button>
+
+<!-- size: mini/default -->
+<button size='mini'>按钮</button>
+
+<!-- Button 的 type 属性：default warn primary -->
+<view>
+  <button size='mini' type='default'>按钮</button>
+  <button size='mini' type='warn'>按钮</button>
+  <button size='mini' type='primary'>按钮</button>
+</view>
+
+<!-- Button 的 plain 属性：true，没有背景 -->
+<view>
+  <button size='mini' plain='{{true}}'>按钮</button>
+</view>
+
+<!-- Button 的 disable 属性：true -->
+<view>
+  <button size='mini' disabled='{{true}}'>按钮</button>
+</view>
+
+<!-- Button 的 loading，显示小菊花 -->
+<view>
+  <button size='mini' loading='{{true}}'>按钮</button>
+</view>
+
+<!-- Button 按下时的样式 -->
+<view>
+  <button size='mini' hover-class='button-hover'>按钮</button>
+</view>
+
+<!-- open-type -->
+<view>
+  <button size='mini' open-type='contact' bindcontact='onContact'>客服会话</button>
+  <button size='mini' open-type='share'>程序分享</button>
+  <button size='mini' open-type='getPhoneNumber' bindgetphonenumber='onGetPhoneNumber'>获取电话</button>
+  <button size='mini' open-type='getUserInfo' bindgetuserinfo='onGetUserInfo'>用户信息</button>
+</view>

@@ -4,51 +4,84 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    titles: ['衣服', '裤子', '鞋子']
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+   
+  handleBtnClick(event) {
+    console.log("按钮被点击了", event)
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+
+  handleTouchStart() {
+    console.log('触摸开始手势')
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+
+  handleTouchMove() {
+    console.log('触摸移动手势')
+  },
+
+  handleTouchEnd() {
+    console.log('触摸结束手势')
+  },
+
+  handleTap() {
+    console.log('轻点手势')
+  },
+
+  handleLongpress() {
+    console.log('长按手势')
+  },
+
+  handleTouchCancel() {
+    onsole.log('触摸取消手势')
+  },
+
+  handleEventClick(event) {
+    console.log('-------', event)
+  },
+
+  handleEventEnd(event) {
+    console.log('+++++++', event)
+  },
+
+  handleInner(event) {
+    console.log(event)
+  },
+
+  handleOuter(event) {
+    console.log(event)
+  },
+
+  handleItemClick(event) {
+    console.log(event)
+    // title - index
+    const dataset = event.currentTarget.dataset;
+    const title = dataset.item;
+    const index = dataset.index;
+    console.log(title, index)
+  },
+
+  // ----------  事件冒泡和事件捕获
+  handleCaptureView1() {
+    console.log('handleCaptureView1')
+  },
+
+  handleBindView1() {
+    console.log('handleBindView1')
+  },
+
+  handleCaptureView2() {
+    console.log('handleCaptureView2')
+  },
+
+  handleBindView2() {
+    console.log('handleBindView2')
+  },
+
+  handleCaptureView3() {
+    console.log('handleCaptureView3')
+  },
+
+  handleBindView3() {
+    console.log('handleBindView3')
   }
 })

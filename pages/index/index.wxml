@@ -1,13 +1,49 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+<!-- 事件的简单演练 -->
+<button size='mini' bindtap='handleBtnClick'>bindtap</button>
+<button size='mini' bind:tap='handleBtnClick'>bind:tap</button>
+<button size='mini' catch:tap='handleBtnClick'>catch:tap</button>
+
+<!-- 常见的一些事件 -->
+<view class='box'
+      bind:touchstart="handleTouchStart"
+      bind:touchmove="handleTouchMove"
+      bind:touchend="handleTouchEnd"
+      bindtouchcancel='handleTouchCancel'
+      bind:tap="handleTap"
+      bind:longpress="handleLongpress">常见事件类型</view>
+
+<!-- 
+  Touchcancel: 在某些特定场景下才会触发（比如来电打断等）
+  tap事件和longpress事件通常只会触发其中一个
+ -->
+
+<!-- 事件对象的分析 -->
+<button id='btn' size='mini' bindtap='handleEventClick'
+        bindtouchend='handleEventEnd'>事件对象</button>
+
+<view class='outer' id='outer' bindtap='handleOuter'>
+  外层的view
+  <view class='inner' id='inner' bindtap='handleInner'>内存的view</view>
+</view>
+
+<!-- 事件的传递参数 -->
+<view class='container'>
+  <block wx:for="{{titles}}" wx:key="{{index}}">
+    <view class='item' 
+          bindtap='handleItemClick'
+          data-index="{{index}}"
+          data-item="{{item}}">
+      {{item}}
+    </view>
+  </block>
+</view>
+
+<!-- 事件冒泡和事件捕获 - catch和bind区别 -->
+<!-- bind: 一层层传递 -->
+<!-- catch: 阻止事件的进一步传递 -->
+<view class='view1' capture-bind:tap="handleCaptureView1" bindtap='handleBindView1'>
+  <view class='view2' capture-bind:tap="handleCaptureView2" catchtap='handleBindView2'>
+    <view class='view3' capture-bind:tap="handleCaptureView3" bindtap='handleBindView3'></view>
   </view>
 </view>

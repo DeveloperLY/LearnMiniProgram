@@ -1,13 +1,61 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view>
+<!-- 自定义组件的基本使用 -->
+<!-- <my-cpn></my-cpn> -->
+<my-cpn/>
+
+<!-- 自定义组件的样式细节 -->
+<my-style/>
+
+<!-- 给自定义组件传递数据/样式 -->
+<my-prop title="标题" content="内容，😋" counter="{{666}}" titleclass="blue"/>
+<my-prop title="标题样式" titleclass="red"/>
+
+<!-- 组件向外传递事件 -->
+<view>当前计数: {{counter}}</view>
+<my-event bind:increment="handleIncrement"/>
+
+<!-- 自定义组件的练习 -->
+<ly-tab-control titles="{{['流行', '精选', '新款']}}"
+               bind:itemclick="handleTabClick"/>
+
+<!-- 直接选中组件修改数据/调用方法 -->
+<view>---------------------------------</view>
+<button size='mini' bind:tap="handleIncrementCpn">修改组件内的数据</button>
+<my-sel class="sel-class" id="sel-id"/>
+
+
+<!-- 插槽的使用 -->
+<!-- 单个插槽的使用 -->
+<!-- 插入一段文字 -->
+<my-slot>
+  <text style='color: red;'>我是插入的文字，哈哈哈</text>
+</my-slot>
+
+<!-- 插入一个按钮 -->
+<my-slot>
+  <button size='mini'>插入的按钮</button>
+</my-slot>
+
+<!-- 插入一张图片 -->
+<my-slot>
+  <image src='https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg'/>
+</my-slot>
+
+<my-slot>
+  <slider value='30'></slider>
+</my-slot>
+
+<!-- 多个插槽的使用 -->
+<!-- 
+  注意事项:
+    1.给每一个插槽起一个名字: name属性
+    2.必须在Component对象中添加一个选项: options -> multipleSlots: true
+ -->
+<button size='mini' bind:tap="handleChangeShow">切换显示</button>
+<block wx:if="{{isShow}}">
+  <my-mslot>
+    <button size='mini' slot="slot2">我是插入的按钮</button>
+    <slider slot="slot1"/>
+    <text slot="slot3">哈哈哈哈</text>
+  </my-mslot>
+</block>

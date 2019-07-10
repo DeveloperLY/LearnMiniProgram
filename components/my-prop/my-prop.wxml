@@ -1,0 +1,6 @@
+<!--components/my-prop/my-prop.wxml-->
+<view>
+  <view class='title titleclass'>title:{{title}}</view>
+  <view class='content'>content:{{content}}</view>
+  <view>counter:{{counter}}</view>
+</view>

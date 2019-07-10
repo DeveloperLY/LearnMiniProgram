@@ -1,4 +1,7 @@
 //app.js
+
+const TOKEN = 'token'
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -6,12 +9,18 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+    // 从缓存中取出token
+    const token = wx.getStorageSync(TOKEN)
+
+    // 判断token是否存在
+    if (token && token.length !== 0) {
+      // 存在的话，验证token是否过期
+      this.check_token()
+    } else {
+      // 不存在，执行登录操作
+      this.login()
+    }
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -33,7 +42,64 @@ App({
       }
     })
   },
+
+  // 登录操作
+  login() {
+    console.log('执行登录操作')
+    // 登录
+    wx.login({
+      // code 的有效期只有5分钟
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        const code = res.code;
+
+        // 将code发送给服务器
+        wx.request({
+          url: 'http://123.207.32.32:3000/login',
+          method: 'post',
+          data: {
+            code: code
+          },
+          success: (res) => {
+            // 取出token
+            const token = res.data.token;
+
+            // 将token保存在globalData中
+            this.globalData.token = token;
+
+            // 保存到缓存中
+            wx.setStorageSync(TOKEN, token)
+          }
+        })
+      }
+    })
+  },
+
+  // 校验token是否有效
+  check_token(token) {
+    console.log('执行校验操作')
+    wx.request({
+      url: 'http://123.207.32.32:3000/auth',
+      method: 'post',
+      header: {
+        token
+      },
+      success: (res) => {
+        if (!res.data.errCode) {
+          console.log('token有效')
+          this.globalData.token = token;
+        } else {
+          this.login()
+        }
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
+  },
+
   globalData: {
-    userInfo: null
+    userInfo: null,
+    token: ''
   }
 })

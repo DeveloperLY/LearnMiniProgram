@@ -1,4 +1,6 @@
 //index.js
+import request from '../../service/network.js'
+
 //获取应用实例
 const app = getApp()
 
@@ -16,6 +18,20 @@ Page({
     })
   },
   onLoad: function () {
+    // 使用原生方式发送网络请求
+    // this.get_data_origin()
+
+    // 使用封装的request发送网络请求
+    // Promise最大的好处就是防止出现回调地狱
+    request({
+      url: 'http://httpbin.org/get'
+    }).then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
+
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -49,6 +65,44 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+
+  get_data_origin() {
+    // 发送最简单的get请求
+    // wx.request({
+    //   url: 'http://httpbin.org/get',
+    //   success: function(res) {
+    //     console.log(res)
+    //   }
+    // })
+
+    // get请求,并且携带参数
+    // wx.request({
+    //   url: 'http://httpbin.org/get',
+    //   data: {
+    //     name: 'DeveloperLY',
+    //     age: 18
+    //   },
+    //   success: function (res) {
+    //     console.log(res)
+    //   }
+    // })
+
+    // post请求,并且携带参数
+    wx.request({
+      url: 'http://httpbin.org/post',
+      method: 'post',
+      data: {
+        name: 'DeveloperLY',
+        age: 18
+      },
+      success: function(res) {
+        console.log(res)
+      },
+      fail: function(err) {
+        console.log(err)
+      }
     })
   }
 })

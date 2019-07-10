@@ -1,0 +1,28 @@
+<!--pages/wxs/wxs.wxml-->
+<!-- 写在wxs标签中 -->
+<wxs module="info_n">
+  var foo = "Hello World";
+  var bar = function() {
+    return "你好，小程序"
+  }
+
+  module.exports = {
+    foo: foo,
+    bar: bar
+  }
+</wxs>
+
+<view>{{info_n.foo}}</view>
+<view>{{info_n.bar()}}</view>
+
+<!-- 写在.wxs文件中 -->
+<!-- 这里不能使用绝对路径，必须使用相对路径 -->
+<wxs src="../../wxs/info.wxs" module="info"/>
+<view>{{info.name}}</view>
+<view>{{info.age}}</view>
+<view>{{info.sayHello()}}</view>
+
+<!-- wxs 的应用示例 -->
+<wxs src="../../wxs/format.wxs" module="format"/>
+<view>{{format.priceFormat(price, 3)}}</view>
+<view>{{format.dateFormat(time, 'yyyy/MM/dd h:m:ss')}}</view>

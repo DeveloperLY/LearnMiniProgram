@@ -1,0 +1,3 @@
+<template name="b">
+  <view>我是B的template</view>
+</template>

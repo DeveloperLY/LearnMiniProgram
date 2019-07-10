@@ -1,0 +1,172 @@
+<!--pages/wxml/wxml.wxml-->
+
+<!-- Mustache 语法不仅仅可以直接显示数据，也可以使用表达式 -->
+<!-- Mustache 语法表达式 -->
+<view>{{message}}</view>
+<view>{{age > 18 ? "成年人" : "未成年人"}}</view>
+<view>{{age + 10}}</view>
+<view>{{age + '岁'}}</view>
+
+<view>{{nowTime}}</view>
+
+<!-- Mustache 绑定属性 -->
+<button size='mini' bindtap='handleSwitchColor'>切换颜色</button>
+<view class='content {{active ? "active" : ""}}'>我是view</view>
+
+<view>-------------条件判断-------------</view>
+<!-- 逻辑判断 wx:if - wx:elif - wx:else -->
+
+<!-- 直接传入true/fase -->
+<view wx:if="{{true}}">是否渲染的内容</view>
+
+<!-- 控制是否渲染 -->
+<button size='mini' bindtap='handleSwitchShow'>切换显示</button>
+<view wx:if='{{isShow}}'>我是内容，哈哈哈...</view>
+
+<view>--------------------------------</view>
+<!-- 多个条件判断 -->
+<button size='mini' bindtap='handleIncrement'>+10</button>
+<view wx:if='{{score >= 90}}'>优秀</view>
+<view wx:elif='{{score >= 80}}'>良好</view>
+<view wx:elif='{{score >= 60}}'>及格</view>
+<view wx:else>不及格</view>
+
+<!-- hidden 属性 -->
+<button size='mini' bindtap='handleShowToggle'>hidden属性</button>
+<view hidden='{{isHidden}}'>hidden 控制内容是否显示</view>
+
+<!-- wx:if和hidden在隐藏组件时有什么区别 -->
+<!--
+区别: 
+  hidden: 将一个组件隐藏起来时,该组件依然是存在(display: none)
+  wx:if: 将一个组件隐藏起来时, 该组件根本不存在(压根没有创建)
+选择:
+  如果显示和隐藏切换的频繁非常高, 选择使用hidden
+  如果显示和隐藏切换的频繁非常低, 那么选择wx:if
+ -->
+<button size='mini' bindtap='onToggle'>切换</button>
+<view wx:if='{{!show}}'>wx:if 控制内容是否显示</view>
+<view hidden='{{show}}'>hidden 控制内容是否显示</view>
+
+<view>-------------列表渲染-------------</view>
+
+<!-- wx:for 基础 -->
+<!-- 遍历数据 -->
+<!-- 遍历一个数组 -->
+<view wx:for='{{["abc", "cba", "nba"]}}'>{{index}}.{{item}}</view>
+<!-- 遍历一个字符串 -->
+<view wx:for='DeveloperLY'>{{index}}.{{item}}</view>
+<!-- 遍历一个数组 -->
+<view wx:for='{{3}}'>{{index}}.{{item}}</view>
+
+<!-- block 标签 -->
+<block wx:if='{{true}}'>
+  <view>哈哈哈</view>
+  <view>嘿嘿嘿</view>
+</block>
+
+<block wx:for='{{movies}}'>
+  <view>电影序号：{{index}}</view>
+  <view>电影名称：{{item}}</view>
+</block>
+
+<!-- 
+  注意：
+  <block/> 并不是一个组件，它仅仅是一个包装元素，不会再页面中做任何渲染，只接受控制属性
+
+  使用block的两个好处：
+  1）将需要进行遍历或者判断的内容进行包裹。
+  2) 将遍历和判断属性放在block标签中，不影响普通属性的阅读，提高代码的可读性。
+ -->
+
+ <!-- item/index 名称 -->
+ <!-- 
+  默认情况下，item-index 的名字是固定的
+  但是某些情况下，我们可能想使用其它名称
+  或者当出现多层遍历时，名字会重复
+  这时候可以指定 item 和 index 的名称
+  -->
+
+<block wx:for='{{movies}}'
+        wx:for-index='i'
+        wx:for-item='movie'>
+  <view>{{i}}.{{movie}}</view>
+</block>
+
+<block wx:for='{{nums}}' 
+       wx:for-item='inner_nums'>
+  <block wx:for='{{inner_nums}}'>
+   <view>{{item}}</view>
+  </block>
+</block>
+
+<!-- key 的作用 -->
+<!-- key的作用主要是为了高效的更新虚拟 DOM -->
+<view class='container'>
+  <view wx:for="{{letters}}" wx:key="{{item}}">{{item}}</view>
+</view>
+
+<view>-------------模板用法-------------</view>
+<!-- 
+  WXML 提供模板（template），可以在模板中定义代码片段，在不同的地方调用。（是一种wxml代码的复用机制）
+ -->
+
+ <!-- 定义模板 -->
+ <template name='msgItem'>
+  <view>{{index}}.{{content}}---{{time}}</view>
+ </template>
+
+ <!-- 使用模板 -->
+ <template is="msgItem" data="{{index: 0, content: '哈哈哈', time: '2019.5.6'}}"/>
+ <template is="msgItem" data="{{index: 1, content: '呵呵呵', time: '2019.6.9'}}"/>
+ <template is="msgItem" data="{{index: 2, content: '嘿嘿嘿', time: '2019.7.10'}}"/>
+
+ <!-- 使用ES6的扩展运算符 -->
+ <template is="msgItem" data="{{...item}}"/>
+
+ <!-- 根据条件使用不同的模板 -->
+ <template name='odd'>
+  <view>奇数：{{num}}</view>
+ </template>
+
+<template name='even'>
+  <view>偶数：{{num}}</view>
+ </template>
+
+ <block wx:for="{{[12, 7, 15, 22, 100]}}">
+  <template is="{{item % 2 == 0 ? 'even' : 'odd'}}" data="{{num: item}}"/>
+ </block>
+
+ <!-- wxml 的引入 -->
+<!-- <include src='/template/template.wxml'/> -->
+<import src='/template/template.wxml'/>
+
+<template is="template" data="{{content: '哈啊哈'}}"/>
+
+<import src='/template/A.wxml'/>
+
+<template is="a"/>
+<!-- 这里会报警告 -->
+<template is="b"/>
+
+<!-- 注意：wxml中不能递归引入（也就是A引入了B的template,不会引入B中引入C的template） -->
+
+<!-- include 引入 -->
+<!-- include 可以将目标中除了 <template/> <wxs/> 外的整个代码引入，相当于是拷贝到 include 位置 -->
+
+<include src='/template/header.wxml'/>
+
+<view>你好，小程序！</view>
+
+<include src='/template/footer.wxml'/>
+
+<!-- 结论: include是不能导入模板 -->
+<!-- 
+关于wxml的导入有两种方式:
+  import导入: 
+    1.主要是导入template
+    2.特点: 不能进行递归导入
+  include引入:
+    1.将公共的wxml中的组件抽取到一个文件中
+    2.特点: 不能导入template/wxs, 可以进行递归导入
+ -->

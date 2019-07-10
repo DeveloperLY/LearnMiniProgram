@@ -1,13 +1,30 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view>
+
+<!-- 页面样式的三种写法 -->
+<!-- 
+  行内样式、页面样式、全局样式
+  三种样式都可以作用也页面的组件
+ -->
+ <!-- 如果有相同的样式 -->
+ <!-- 优先级依次是：行内样式 > 页面样式 > 全局样式 -->
+
+ <!-- 行内样式 -->
+ <view style='color: red; font-size:28rpx;'>行内样式</view>
+
+ <!-- 页面样式 -->
+ <view class='box'>页面样式</view>
+
+ <!-- 全局样式 -->
+ <view class='container'>全局样式</view>
+
+ <!-- 三种样式同时作用 -->
+ <view style='color: orange; background: blue;' class='page app'>三种样式的作用</view>
+
+ <!-- 选择器的权重 -->
+ <!-- 
+ ！important: ♾
+ style="": 1000
+ #id: 100
+ .class: 10
+ element: 1
+  -->

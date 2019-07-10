@@ -1,0 +1,12 @@
+var name = 'DeveloperLY'
+var age = 18
+
+function sayHello() {
+  return 'Hello MiniProgram'
+}
+
+module.exports = {
+  name: name,
+  age: age,
+  sayHello: sayHello
+}

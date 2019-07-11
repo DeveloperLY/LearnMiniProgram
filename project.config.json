@@ -15,7 +15,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.7.3",
 	"appid": "wx8d04c19bc477ae95",
-	"projectname": "MiniProgram",
+	"projectname": "LearnMiniProgram",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

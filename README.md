@@ -16,13 +16,13 @@
 1.将代码clone到本地（注意这里不能直接download）
 
 ```shell
-git clone https://github.com/DeveloperLY/LearnMiniProgram
+git clone https://github.com/DeveloperLY/LearnMiniProgram.git
 ```
 
 2.进入目录，查看某个知识点，切换到对应的tag
 
 ```shell
-git checkout 12_登录流程和演练
+git checkout 11-项目实战演练
 ```
 
 

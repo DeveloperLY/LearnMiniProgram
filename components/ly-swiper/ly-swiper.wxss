@@ -1,0 +1,4 @@
+/* components/ly-swiper/ly-swiper.wxss */
+.swiper-item image {
+  width: 100%;
+}

@@ -1,0 +1,23 @@
+<!--pages/home/home.wxml-->
+<!-- 展示轮播图 -->
+<ly-swiper list="{{banners}}"/>
+
+<!-- 推荐数据展示 -->
+<ly-recommend recommends='{{recommends}}' bind:imageLoad='handleImageLoad'/>
+
+<!-- 展示本周流行 -->
+<ly-popular/>
+
+<!-- tab-control -->
+<ly-tab-control titles='{{titles}}'
+                bind:tabClick='handleTabClick'
+                id="tab-control"
+                class="{{isTabFixed ? 'fixed': ''}}"/>
+<ly-tab-control titles="{{titles}}" wx:if="{{isTabFixed}}"/>
+
+<!-- 展示商品列表数据 -->
+<ly-goods goods='{{goods[currentType].list}}'/>
+
+<!-- 回到顶部 -->
+<!-- hidden: hidden属于对于自定义的组件是无效 -->
+<ly-back-top wx:if='{{showBackTop}}'/>
